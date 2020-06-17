@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+
+{% block maincontent%}
+
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+
+                <img src="{{ object.image.url }}" class="img-fluid" alt="">
+
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+
+                <!--Content-->
+                <div class="p-4">
+
+                    <div class="mb-3">
+                        <a href="">
+                            <span class="badge purple mr-1">{{ object.get_category_display }} </span>
+                        </a>
+
+                    </div>
+
+                    <p class="lead font-weight-bold">Availability : {{ object.get_availabily_display }}</p>
+
+                    <p class="lead">
+
+                        {% if object.discount_price %}
+                        <span class="mr-1">
+                            <del>
+                                {{ object.price  }}
+                            </del>
+                        </span>
+                        <span>${{ object.discount_price }}</span>
+                        {% else %}
+
+                        <span>${{ object.price }}</span>
+
+                        {% endif %}
+
+                    </p>
+
+                    <p class="lead font-weight-bold">Description </p>
+
+                    <p> {{ object.description }}</p>
+
+
+                    {% if object.availabily == 'S' %}
+
+                    {% if request.user.is_authenticated %}
+
+                    <p class="lead font-weight-bold">Rate the {{ object.title}}</p>
+                    <!-- Rating part-->
+
+                    <div class='rating' method='POST'>{% csrf_token %}
+                        <input type="radio" name="rate" id="star5" value="5">
+                        <label for="star5">
+                            <img src="/media/5.png" height="42" width="42">
+                            <h4>Very satisfied</h4>
+                        </label>
+                        <input type="radio" name="rate" id="star4" value="4">
+                        <label for="star4">
+                            <img src="/media/4.png" height="42" width="42">
+                            <h6>satisfied</h6>
+                        </label>
+                        <input type="radio" name="rate" id="star3" value="3">
+                        <label for="star3">
+                            <img src="/media/3.png" height="42" width="42">
+                            <h6>Liked It</h6>
+                        </label>
+                        <input type="radio" name="rate" id="star2" value="2">
+                        <label for="star2">
+                            <img src="/media/2.png" height="42" width="42">
+                            <h6>Not satisfied </h6>
+                        </label>
+                        <input type="radio" name="rate" id="star1" value="1" checked="checked">
+                        <label for="star1">
+                            <img src="/media/1.png" height="42" width="42">
+                            <h6>Hated It </h6>
+                        </label>
+                    </div>
+                    {% endif %}
+
+
+                    <a href="{% url 'add-to-cart' object.slug %}" class="btn btn-primary btn-md my-0 p">Add to cart
+                        <i class="fas fa-shopping-cart ml-1"></i>
+                    </a>
+
+
+                    <a href="{% url 'remove-from-cart' object.slug %}" class="btn btn-danger btn-md my-0 p">Remove From
+                        cart
+                        <i class="fas fa-shopping-cart ml-1"></i>
+                    </a>
+                    {% endif %}
+
+
+                </div>
+                <!--Content-->
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+        <hr>
+
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-md-6 text-center">
+
+                <h4 class="my-4 h3">Recommended for You</h3>
+                    <p>Products you might like</p>
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-12 mb-4">
+
+                <img src="/media/36.jpg" width="200" height="200" class="img-fluid" alt="">
+
+            </div>
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <img src="/media/33.jpg" width="200" height="200" class="img-fluid" alt="">
+
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <img src="/media/40.jfif" width="200" height="200" class="img-fluid" alt="">
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+    </div>
+</main>
+<!--Main layout-->
+{%  endblock %}
